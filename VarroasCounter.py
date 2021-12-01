@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # encoding: utf-8
 
-import sys,os,json
+import sys,os,json,requests
 import time
 from time import sleep
 import cv2
@@ -47,6 +47,6 @@ def comptage() :
 nbVarroas = comptage()
 
 data['count'] = nbVarroas
-r = requests.post('https://varroacounter.jodaille.org/counter-results', json=json.dumps(data))
+r = requests.post('http://varroacounter.jodaille.org/counter-results', json=json.dumps(data))
 print(json.dumps(data))
 print(r)
