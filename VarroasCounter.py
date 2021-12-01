@@ -47,5 +47,6 @@ def comptage() :
 nbVarroas = comptage()
 
 data['count'] = nbVarroas
+r = requests.post('https://varroacounter.jodaille.org/counter-results', json=json.dumps(data))
 print(json.dumps(data))
-
+print(r)
