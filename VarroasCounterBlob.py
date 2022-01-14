@@ -87,15 +87,15 @@ def analyse(filename, parameters):
 	return nb_varroas,im_with_keypoints,workingImage
 
 
-
-minThreshold = 99
-maxThreshold = 168
+# A:10 B:150 C:0 D:35 E:150 F:0.66 G:0.72 H:0.44
+minThreshold = 10
+maxThreshold = 150
 blobColor = 0
-minArea = 117
-maxArea = 134
-minCircularity = 79
-minConvexity = 75
-minInertiaRatio = 50
+minArea = 35
+maxArea = 150
+minCircularity = 0.66
+minConvexity = 0.72
+minInertiaRatio = 0.44
 parameters=(minThreshold,maxThreshold,blobColor,minArea,maxArea,minConvexity,minConvexity,minInertiaRatio)
 
 
