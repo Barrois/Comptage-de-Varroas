@@ -41,6 +41,8 @@ def resizeMilleCinqCentTrente(image):
         cv2.resizeWindow(win_name, windowW, windowH)  #  use variables defined/computed BEFOREHAND
         cv2.imshow(win_name, resized)
         cv2.waitKey(0)
+    if (smallest < 1530):
+        print('trop petite !')
 
 try:
 
