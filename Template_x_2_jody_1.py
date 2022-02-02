@@ -12,9 +12,16 @@ import collections
 import imutils
 import math
 import numpy as np
+from pathlib import Path
 
 try:
+
+    # need script path to find crops images
+    dirpath = Path(__file__).parent.absolute()
+    dirpath = str(dirpath)
+    print("Directory Path:", dirpath)
     filename = sys.argv[1]
+
     name, ext = os.path.splitext(sys.argv[1])
     output = name + '_final' + ext
     data = {'filename': filename, 'output': output, 'count': 0}
@@ -46,7 +53,7 @@ def mon_resize (image,taille):
 
 # https://stackoverflow.com/questions/61779288/how-to-template-match-a-simple-2d-shape-in-opencv
 def detect_crop (filecrop,image_avant,couleur1,couleur2,couleur3,img_0) :
-    template = cv2.imread(filecrop, cv2.IMREAD_UNCHANGED)
+    template = cv2.imread(dirpath + '/' +filecrop, cv2.IMREAD_UNCHANGED)
     hh, ww = template.shape[:2]
     # extract pawn base image and alpha channel and make alpha 3 channels
     pawn = template[:,:,0:3] # pawn = le piont
