@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 # encoding: utf-8
 
 # détecte trois fois avec trois images de varroas différentes crop_3, crop_25 et crop_89
@@ -31,6 +32,37 @@ try:
 except IndexError:
     print("missing filename")
     sys.exit()
+
+def image_resize(image, width = None, height = None, inter = cv2.INTER_AREA):
+    # initialize the dimensions of the image to be resized and
+    # grab the image size
+    dim = None
+    (h, w) = image.shape[:2]
+
+    # if both the width and height are None, then return the
+    # original image
+    if width is None and height is None:
+        return image
+
+    # check to see if the width is None
+    if width is None:
+        # calculate the ratio of the height and construct the
+        # dimensions
+        r = height / float(h)
+        dim = (int(w * r), height)
+
+    # otherwise, the height is None
+    else:
+        # calculate the ratio of the width and construct the
+        # dimensions
+        r = width / float(w)
+        dim = (width, int(h * r))
+
+    # resize the image
+    resized = cv2.resize(image, dim, interpolation = inter)
+
+    # return the resized image
+    return resized
 
 def count(listOfTuple):
     flag = False
@@ -101,6 +133,37 @@ threshold = 0.992
 # img = cv2.imread('Michel1530_3.JPG') # Michel1530_3.jpg CM_10v_1.JPG
 workingImage = cv2.imread(filename)
 img_de_base = workingImage
+
+
+destinationwidth = 1530
+destinationheight = 2106
+windowH = 1053
+windowW = 765
+
+dim = (destinationwidth, destinationheight)
+
+height  = workingImage.shape[0]
+width = workingImage.shape[1]
+smallest = width
+
+
+if (height < width):
+    smallest = height
+    dim = (destinationheight, destinationwidth)
+    windowH = 765
+    windowW = 1053
+
+print("smallest: ", smallest)
+if (smallest > 1530):
+    workingImage = image_resize(workingImage, width = destinationwidth)
+    # resized = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
+    print("resized height:", workingImage.shape[0], "width:", workingImage.shape[1])
+    # cv2.resizeWindow(win_name, windowW, windowH)  #  use variables defined/computed BEFOREHAND
+    # cv2.imshow(win_name, resized)
+    # cv2.waitKey(0)
+if (smallest < 1530):
+    print('trop petite !')
+
 
 #'crop_3.jpg'
 a0,retour_0 = detect_crop('crop_3.jpg',workingImage,0,255,0,img_de_base)
